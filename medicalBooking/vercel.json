@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist",
+        "buildCommand": "npm run build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server/api/$1"
+    },
+    {
+      "src": "/assets/(.*)",
+      "headers": {
+        "cache-control": "public, max-age=31536000, immutable"
+      },
+      "continue": true
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "headers": {
+        "cache-control": "public, max-age=0, must-revalidate"
+      }
+    }
+  ],
+  "env": {
+    "EMAIL_ADDRESS": "hgvlearning@gmail.com",
+    "EMAIL_PASSWORD": "wzlpfkkxulegbdoj",
+    "IMAP_SERVER": "imap.gmail.com",
+    "IMAP_PORT": "993",
+    "SF_USERNAME": "dre192@hotmail.co.uk",
+    "SF_PASSWORD": "Dreman.com14Dreman.com14",
+    "SF_SECURITY_TOKEN": "OfFvDUiEjxaW4m5vBsgQTYjMM"
+  }
+}
